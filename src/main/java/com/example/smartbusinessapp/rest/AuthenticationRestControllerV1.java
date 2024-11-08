@@ -1,6 +1,7 @@
 package com.example.smartbusinessapp.rest;
 
 import com.example.smartbusinessapp.dto.AuthenticationRequestDto;
+import com.example.smartbusinessapp.model.Role;
 import com.example.smartbusinessapp.model.User;
 import com.example.smartbusinessapp.security.jwt.JwtTokenProvider;
 import com.example.smartbusinessapp.service.UserService;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api/v1/auth/")
@@ -47,7 +50,10 @@ public class AuthenticationRestControllerV1 {
                 throw new UsernameNotFoundException("User with username: " + username + " not found");
             }
 
-            String token = jwtTokenProvider.createToken(username, user.getRoles());
+            List<String> roles = user.getRoles().stream()
+                    .map(Role::getName)  // Преобразование роли в строку
+                    .collect(Collectors.toList());
+            String token = jwtTokenProvider.createToken(username, roles);
 
             Map<Object, Object> response = new HashMap<>();
             response.put("username", username);

@@ -1,4 +1,3 @@
-// src/main/java/com/example/smartbusinessapp/config/SecurityConfig.java
 package com.example.smartbusinessapp.config;
 
 import com.example.smartbusinessapp.security.jwt.JwtTokenFilter;
@@ -43,7 +42,9 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class).build();
+        AuthenticationManagerBuilder authenticationManagerBuilder =
+                http.getSharedObject(AuthenticationManagerBuilder.class);
+        return authenticationManagerBuilder.build();
     }
 
     @Bean
@@ -53,6 +54,7 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
+        return (web) -> web.ignoring().requestMatchers(
+                "/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
     }
 }
