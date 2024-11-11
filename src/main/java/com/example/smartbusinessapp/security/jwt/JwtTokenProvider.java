@@ -8,6 +8,7 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,7 +31,11 @@ public class JwtTokenProvider {
 
     private Key key;
 
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
+
+    public JwtTokenProvider(@Lazy UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @PostConstruct
     public void init() {
@@ -39,11 +44,6 @@ public class JwtTokenProvider {
             throw new IllegalArgumentException("Секретный ключ недостаточной длины. Минимум 32 символа.");
         }
         this.key = Keys.hmacShaKeyFor(secretBytes);
-    }
-
-    // Метод для установки UserDetailsService из SecurityConfig
-    public void setUserDetailsService(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
     }
 
     public String createToken(String username, List<String> roles) {
