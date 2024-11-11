@@ -1,17 +1,9 @@
 package com.example.smartbusinessapp.model;
 
-import jakarta.persistence.*;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
+import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 
 import java.util.Date;
 
@@ -24,10 +16,12 @@ public class BaseEntity {
     private Long id;
 
     @CreatedDate
-    @jakarta.persistence.Column(name = "created")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created", nullable = false, updatable = false)
     private Date created;
 
     @LastModifiedDate
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated")
     private Date updated;
 

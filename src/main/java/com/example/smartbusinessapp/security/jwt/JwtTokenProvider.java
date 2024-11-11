@@ -1,12 +1,12 @@
 package com.example.smartbusinessapp.security.jwt;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ClaimsBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -47,17 +47,19 @@ public class JwtTokenProvider {
     }
 
     public String createToken(String username, List<String> roles) {
-        Claims claims = (Claims) Jwts.claims().setSubject(username);
-        claims.put("roles", roles);
+        // Создаем ClaimsBuilder
+        ClaimsBuilder claimsBuilder = Jwts.claims().setSubject(username);
+        claimsBuilder.add("roles", roles);  // Добавляем роли
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
 
+        // Строим JWT с помощью ClaimsBuilder
         return Jwts.builder()
-                .setClaims(claims)
+                .setClaims(claimsBuilder.build())  // Строим Claims
                 .setIssuedAt(now)
                 .setExpiration(validity)
-                .signWith(key, SignatureAlgorithm.HS256) // Подпись с использованием key
+                .signWith(key, SignatureAlgorithm.HS256)  // Подпись с использованием ключа
                 .compact();
     }
 
