@@ -1,76 +1,69 @@
-Smart Business App
+# Smart Business App
 
-Smart Business App is a Spring Boot application designed to manage user authentication, roles, and business operations using RESTful APIs. It includes user authentication through JSON Web Tokens (JWT), secure role-based access control, and PostgreSQL database integration with Liquibase migrations for schema management.
+Smart Business App is a full-stack application designed to streamline user authentication, role management, and business operations. Built with a **Spring Boot backend** and a **React-based frontend**, the project features secure role-based access control, RESTful APIs, and a robust PostgreSQL database integrated with Liquibase for schema management.
 
-Features
+---
 
-	•	JWT Authentication: Implements JWT for secure token-based authentication.
-	•	Role-based Access Control: Supports multiple user roles with distinct permissions.
-	•	REST API: Exposes RESTful endpoints for user management, authentication, and role assignments.
-	•	Database Migrations: Uses Liquibase for versioned database schema migrations.
-	•	Auditable Entities: Includes entity audit fields (created, updated) for tracking changes.
+## **Features**
 
-Technologies Used
+### Backend Features
+- **JWT Authentication**: Secure, token-based user authentication.
+- **Role-Based Access Control**: Supports multiple roles like `ROLE_USER` and `ROLE_ADMIN`, with distinct permissions.
+- **REST API**: Provides endpoints for user management, authentication, and role assignment.
+- **Database Migrations**: Utilizes Liquibase for versioned schema migrations.
+- **Auditable Entities**: Tracks changes with `created` and `updated` timestamps.
 
-	•	Spring Boot (Web, Data JPA, Security)
-	•	PostgreSQL as the database
-	•	Liquibase for database migration management
-	•	Lombok for reducing boilerplate code
-	•	JWT for token-based authentication
-	•	Jakarta Annotations for @PostConstruct and other annotations
+### Frontend Features
+- **React UI**: A responsive and modern user interface.
+- **Routing**: Implements React Router for seamless navigation.
+- **State Management**: Uses Redux for predictable state handling.
+- **Styled Components**: Customizable styles using CSS-in-JS.
+- **Material-UI**: Consistent design with pre-built components.
 
-Project Structure
+---
 
-	•	model: Defines JPA entities such as User, Role, and Status along with a BaseEntity for common fields.
-	•	repository: Includes JPA repositories for data access.
-	•	security: Contains JWT-related components, security configuration, and custom UserDetails service.
-	•	service: Implements business logic for user registration and management.
-	•	rest: Exposes REST endpoints for user and role management, and authentication.
+## **Technologies Used**
 
-Getting Started
+### Backend
+- **Spring Boot**: Web, Data JPA, Security.
+- **PostgreSQL**: Relational database.
+- **Liquibase**: Database migration management.
+- **Lombok**: Reduces boilerplate code.
+- **JWT**: Token-based authentication.
+- **Jakarta Annotations**: For lifecycle management.
 
-Prerequisites
+### Frontend
+- **React**: Component-based UI library.
+- **Redux**: State management.
+- **Styled Components**: CSS-in-JS library for dynamic styling.
+- **Material-UI**: UI component library.
+- **Vite**: Fast build tool and development server.
+- **TypeScript**: Typed JavaScript for scalable development.
 
-	•	Java 17 or newer
-	•	Maven for building the project
-	•	PostgreSQL database
+---
 
-Setup
+## **Project Structure**
 
-	1.	Clone the repository: 
- 
-		git clone https://github.com/your-username/smartbusinessapp.git
-		cd smartbusinessapp
+### Backend
+- **model/**: JPA entities such as `User`, `Role`, and `Status`. Includes `BaseEntity` for common fields.
+- **repository/**: JPA repositories for data access.
+- **security/**: JWT components, security configuration, and custom `UserDetailsService`.
+- **service/**: Business logic for user registration and management.
+- **rest/**: RESTful controllers for user, role, and authentication endpoints.
 
-	2.	Configure PostgreSQL:
+### Frontend
+- **public/**: Static assets like icons and fonts.
+- **src/**
+  - **components/**: Reusable React components.
+  - **pages/**: Page-specific components (e.g., `Home`, `Login`).
+  - **styles/**: Global and theme-based styling.
+  - **App.tsx**: Root React component.
+  - **main.tsx**: Application entry point.
 
-		Update application.properties with your PostgreSQL connection details:
+---
 
-		spring.datasource.url=jdbc:postgresql://localhost:5432/smartbusinessapp_db
-		spring.datasource.username=your_db_username
-		spring.datasource.password=your_db_password
+## **Getting Started**
 
-	3.	Set up JWT Secret:
- 
-		Set the JWT secret key in application.properties:
-
-		jwt.token.secret=your_secret_key_base64_encoded
-		jwt.token.expired=3600000
-
-API Endpoints
-
-	•	Authentication:
-	•	POST /api/v1/auth/login: User login with JWT token generation.
-	•	User Management:
-	•	GET /api/v1/users/{id}: Retrieve user information by ID (requires authentication).
-	•	Admin Functions:
-	•	GET /api/v1/admin/users/{id}: Access user information (admin-only access).
-
-Database Migrations
-
-This project uses Liquibase for managing database schema changes. Ensure the liquibase properties in application.properties are configured correctly for your environment.
-
-Security
-
-The application uses Spring Security with JWT for token-based authentication. Authorization is enforced based on roles, such as ROLE_USER and ROLE_ADMIN.
- 
+### Prerequisites
+- **Backend**: Java 17+, Maven, PostgreSQL.
+- **Frontend**: Node.js (v16 or newer) and npm.
